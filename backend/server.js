@@ -7,10 +7,10 @@ import rateLimit from "express-rate-limit";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import Coupon from "./models/Coupon.js";
-import Claim from "./models/Claim.js";
-import Admin from "./models/Admin.js";
-import Config from "./models/Config.js"; // Import the Config model
+import Coupon from "./models/coupon.js";
+import Claim from "./models/claim.js";
+import Admin from "./models/admin.js";
+import Config from "./models/coupon.js"; // Import the Config model
 
 
 dotenv.config();
