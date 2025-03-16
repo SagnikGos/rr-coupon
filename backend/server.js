@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error("MongoDB connection error:", err));
 
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:5175", credentials: true }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -124,8 +124,15 @@ app.get("/admin/claims", verifyAdmin, async (req, res) => {
 
 // **6. Admin - Delete Coupon**
 app.delete("/admin/coupons/:id", verifyAdmin, async (req, res) => {
-  await Coupon.findByIdAndDelete(req.params.id);
-  res.json({ message: "Coupon deleted." });
+  try {
+    const deletedCoupon = await Coupon.findByIdAndDelete(req.params.id);
+    if (!deletedCoupon) {
+      return res.status(404).json({ message: "Coupon not found." });
+    }
+    res.json({ message: "Coupon deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting coupon", error });
+  }
 });
 
 app.post("/admin/register", async (req, res) => {

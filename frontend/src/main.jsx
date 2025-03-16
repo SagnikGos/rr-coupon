@@ -1,10 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TooltipProvider } from "@radix-ui/react-tooltip"; // Import TooltipProvider
+import Login from "./pages/login.jsx";
+import Dashboard from "./pages/dashboard.jsx";
+import "./index.css";
+import User from "./pages/user.jsx";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <TooltipProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<User/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  </TooltipProvider>
+);
