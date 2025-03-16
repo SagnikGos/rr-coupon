@@ -59,7 +59,7 @@ export const addCoupon = async (code) => {
 
 export const deleteCoupon = async (id) => {
   const token = localStorage.getItem("token");
-  const response = await fetch(`http://localhost:5000/admin/coupons/${id}`, {
+  const response = await fetch(`${API_URL}/admin/coupons/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
