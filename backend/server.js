@@ -25,11 +25,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
   app.use(
-    cors({
-      origin: "https://coupon-portal.vercel.app", // Allow only your frontend
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true, // Allow cookies if needed
-    })
+    cors()
   );
 
 app.use(express.json());
