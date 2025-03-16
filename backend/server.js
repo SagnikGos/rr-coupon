@@ -11,6 +11,7 @@ import Coupon from "./models/coupon.js";
 import Claim from "./models/claim.js";
 import Admin from "./models/admin.js";
 import Config from "./models/coupon.js"; // Import the Config model
+import path from "path";
 
 
 dotenv.config();
