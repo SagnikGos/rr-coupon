@@ -1,4 +1,4 @@
-const API_URL = "https://coupon-portal.onrender.com/"; // Change this to your deployed backend URL
+const API_URL = "https://coupon-portal.onrender.com"; // Change this to your deployed backend URL
 
 export const claimCoupon = async () => {
   try {
