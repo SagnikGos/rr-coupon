@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error("MongoDB connection error:", err));
 
 
-app.use(cors({ origin: "http://localhost:5175", credentials: true }));
+app.use(cors({ origin: "https://coupon-portal.vercel.app/", credentials: true }));
 
 app.use(express.json());
 app.use(cookieParser());
