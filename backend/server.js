@@ -14,9 +14,10 @@ import Config from "./models/coupon.js"; // Import the Config model
 
 
 dotenv.config();
+const app = express();
 
 
-app.options("*", cors()); // Handle preflight CORS requests
+
 
 // Connect to MongoDB
 
@@ -32,18 +33,9 @@ mongoose.connect(process.env.MONGO_URI)
   
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(helmet());
-app.set("trust proxy", 1);
 
-
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "frontend", "dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
 
 // Rate limit to prevent abuse
 const limiter = rateLimit({
