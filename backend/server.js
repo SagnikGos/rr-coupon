@@ -34,6 +34,8 @@ mongoose.connect(process.env.MONGO_URI)
     })
   );
   
+  app.options("*", cors()); // Handle preflight CORS requests
+  
 
 app.use(express.json());
 app.use(cookieParser());
