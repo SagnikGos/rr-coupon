@@ -24,9 +24,16 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error("MongoDB connection error:", err));
 
 
+  import cors from "cors";
+
   app.use(
-    cors()
+    cors({
+      origin: "https://coupon-portal.vercel.app", // Allow only your frontend
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true, // Allow cookies & authentication
+    })
   );
+  
 
 app.use(express.json());
 app.use(cookieParser());
