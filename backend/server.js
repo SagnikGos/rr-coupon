@@ -51,6 +51,10 @@ const verifyAdmin = (req, res, next) => {
     res.status(401).json({ error: "Invalid token" });
   }
 };
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 
 app.post("/claim-coupon", async (req, res) => {
   const ip = req.ip;
