@@ -111,9 +111,33 @@ app.get("/admin/coupons", verifyAdmin, async (req, res) => {
 
 // **4. Admin - Add Coupon**
 app.post("/admin/coupons", verifyAdmin, async (req, res) => {
-  const { code } = req.body;
-  const newCoupon = await Coupon.create({ code });
-  res.json(newCoupon);
+  try {
+    const { code } = req.body;
+    if (!code) {
+      return res.status(400).json({ message: "Coupon code is required." });
+    }
+
+    // Check if the coupon already exists
+    const existingCoupon = await Coupon.findOne({ code });
+
+    if (existingCoupon) {
+      // If coupon exists and is claimed, mark it as pending
+      if (existingCoupon.status === "claimed") {
+        existingCoupon.status = "pending";
+        existingCoupon.assignedTo = null; // Remove assigned user
+        await existingCoupon.save();
+        return res.json({ message: "Coupon status reset to pending.", coupon: existingCoupon });
+      }
+
+      return res.status(400).json({ message: "Coupon already exists and is available." });
+    }
+
+    // Create a new coupon if it doesn't exist
+    const newCoupon = await Coupon.create({ code, status: "pending" });
+    res.json({ message: "New coupon added successfully.", coupon: newCoupon });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding coupon", error });
+  }
 });
 
 // **5. Admin - View Claims**
