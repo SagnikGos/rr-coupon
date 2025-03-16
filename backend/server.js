@@ -15,6 +15,15 @@ import Config from "./models/coupon.js"; // Import the Config model
 
 dotenv.config();
 const app = express();
+app.use(
+  cors({
+    origin: "https://rr-coupon-3.onrender.com", // Allow only your frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // Allow cookies & authentication
+  })
+);
+
+app.options("*", cors()); // Handle preflight CORS requests
 
 // Connect to MongoDB
 
@@ -26,15 +35,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
-  app.use(
-    cors({
-      origin: "https://rr-coupon-3.onrender.com", // Allow only your frontend
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true, // Allow cookies & authentication
-    })
-  );
   
-  app.options("*", cors()); // Handle preflight CORS requests
   
 
 app.use(express.json());
